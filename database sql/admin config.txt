@@ -1,0 +1,18 @@
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('本科',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('博士',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('初中',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('大专',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('高中',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('硕士',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('小学',1,'SYSADMIN',getdate());
+insert into admin_degree_list(edu_degree,status,update_user,update_time)values('中专',1,'SYSADMIN',getdate());
+
+insert into admin_duty_list(duty,status,update_user,update_time)values('经理',1,'SYSADMIN',getdate());
+insert into admin_duty_list(duty,status,update_user,update_time)values('文员',1,'SYSADMIN',getdate());
+insert into admin_duty_list(duty,status,update_user,update_time)values('员工',1,'SYSADMIN',getdate());
+insert into admin_duty_list(duty,status,update_user,update_time)values('主管',1,'SYSADMIN',getdate());
+insert into admin_duty_list(duty,status,update_user,update_time)values('组长',1,'SYSADMIN',getdate());
+insert into admin_duty_list(duty,status,update_user,update_time)values('工程师',1,'SYSADMIN',getdate());
+
+insert into admin_dept_list(dept_id,dept_desc,status,update_user,update_time)values('滴胶组','',1,'SYSADMIN',getdate());
+insert into admin_dept_list(dept_id,dept_desc,status,update_user,update_time)values('喷油组','',1,'SYSADMIN',getdate());

@@ -1,0 +1,26 @@
+CREATE TRIGGER [dbo].[tri_item_epiboly_detail] ON [dbo].[item_epiboly_detail] 
+after INSERT,UPDATE,DELETE
+AS
+SET NOCOUNT ON
+Declare @itemno as varchar(50)
+Declare @procid as varchar(50)
+Declare @inputqty as decimal(8,4)
+Declare @oldqty as decimal(8,4)
+
+IF EXISTS(SELECT 1 FROM inserted) AND NOT EXISTS(SELECT 1 FROM deleted)
+begin
+   select @itemno=item_no,@procid=proc_id,@inputqty=return_qty from inserted
+   update item_process set input_qty+=@inputqty where item_no=@itemno and proc_id=@procid
+end
+ELSE IF EXISTS(SELECT 1 FROM inserted) AND EXISTS(SELECT 1 FROM deleted)
+begin
+	select @itemno=item_no,@procid=proc_id,@inputqty=return_qty from inserted
+    select @oldqty=return_qty from deleted
+    update item_process set input_qty+=@inputqty-@oldqty where item_no=@itemno and proc_id=@procid
+end
+ELSE IF NOT EXISTS(SELECT 1 FROM inserted) AND EXISTS(SELECT 1 FROM deleted)
+begin
+   select @itemno=item_no,@procid=proc_id,@inputqty=return_qty from deleted
+   update item_process set input_qty-=@inputqty where item_no=@itemno and proc_id=@procid
+end
+SET NOCOUNT OFF

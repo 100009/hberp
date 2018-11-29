@@ -1,0 +1,30 @@
+CREATE TRIGGER [dbo].[tri_process_trans_detail] ON [dbo].[process_trans_detail] 
+after INSERT,UPDATE,DELETE
+AS
+SET NOCOUNT ON
+Declare @transno as varchar(50)
+Declare @itemno as varchar(50)
+Declare @procid as varchar(50)
+Declare @inputqty as decimal(8,4)
+Declare @oldqty as decimal(8,4)
+
+IF EXISTS(SELECT 1 FROM inserted) AND NOT EXISTS(SELECT 1 FROM deleted)
+begin
+   select @itemno=item_no,@transno=trans_no,@inputqty=trans_qty from inserted
+   select @procid=proc_id from process_trans where trans_no=@transno
+   update item_process set input_qty+=@inputqty where item_no=@itemno and proc_id=@procid
+end
+ELSE IF EXISTS(SELECT 1 FROM inserted) AND EXISTS(SELECT 1 FROM deleted)
+begin
+	select @itemno=item_no,@transno=trans_no,@inputqty=trans_qty from inserted
+    select @oldqty=trans_qty from deleted
+    select @procid=proc_id from process_trans where trans_no=@transno
+    update item_process set input_qty+=@inputqty-@oldqty where item_no=@itemno and proc_id=@procid
+end
+ELSE IF NOT EXISTS(SELECT 1 FROM inserted) AND EXISTS(SELECT 1 FROM deleted)
+begin
+   select @itemno=item_no,@transno=trans_no,@inputqty=trans_qty from deleted
+   select @procid=proc_id from process_trans where trans_no=@transno
+   update item_process set input_qty-=@inputqty where item_no=@itemno and proc_id=@procid
+end
+SET NOCOUNT OFF
