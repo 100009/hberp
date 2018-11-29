@@ -1,0 +1,13 @@
+.DetailView(detailView => detailView.Template(e =>
+        {
+            %>
+                <ul>
+                    <li>公司性质: <%= e.Incorporator %> <%= e.ProductType %></li>
+                    <li>业务员: <%= e.SalesMan %></li>
+                    <li>公司大小: <%= e.CompanySize %></li>
+                    <li>付款方式: <%= e.PayMethod %></li>
+                    <li>操作人: <%= e.UpdateUser %></li>
+                    <li>操作时间: <%= e.UpdateTime.ToString("yyyy/MM/dd") %></li>
+                </ul>
+            <%
+        }))
