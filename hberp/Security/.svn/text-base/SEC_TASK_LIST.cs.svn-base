@@ -1,0 +1,298 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.OracleClient;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace HKPS
+{
+    public partial class SEC_TASK_LIST : Form
+    {
+        bool rowChanged = false;
+        string strSelId = "";
+        private static int intSelIndex;
+        public SEC_TASK_LIST()
+        {
+            InitializeComponent();
+        }
+
+        private void SEC_TASK_LIST_Load(object sender, EventArgs e)
+        {
+            intSelIndex = 2;
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                toolLock.Checked = true;
+                toolLock.Text = "Unlock";
+                PDefine.strSql = "Select rownum,t.Task_Id as TaskID,t.Task_Desc as Descr,t.Update_User as UpdateUser,t.Update_time as UpdateTime from Task_List t order by Task_Id";
+                DataSet ds = PDefine.lxs.SAEGetDataSource(PDefine.strSql);
+
+                if (GridView1.RowCount > 1)
+                    intSelIndex = GridView1.CurrentRow.Index;
+
+                GridView1.DataSource = ds.Tables[0];
+                GridView1.MultiSelect = false;
+                GridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                for (int iCol = 0; iCol < GridView1.ColumnCount; iCol++)
+                    GridView1.Columns[iCol].ReadOnly = true;
+
+                if (intSelIndex < GridView1.RowCount)
+                {
+                    GridView1.FirstDisplayedScrollingRowIndex = intSelIndex;
+
+                }
+                GridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+                StatusLabel1.Text = ds.Tables[0].Rows.Count.ToString() + " rows";
+                StatusLabel2.Text = "";
+                StatusLabel3.Text = "";
+                StatusLabel4.Text = "Refresh";
+            }
+            catch
+            {
+            }
+            this.Cursor = Cursors.Default;
+        }
+
+        private void toolExit_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void GridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[3].Value = PDefine.G_User_Id;
+            e.Row.Cells[4].Value = DateTime.Now.ToString();
+        }
+
+        private void GridView1_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (!rowChanged) { return; }
+
+            DataGridViewRow row = GridView1.Rows[e.RowIndex];
+
+            string valResult = ValidateRowEntry(e);
+            if (valResult.Length > 0)
+            {
+                row.ErrorText = valResult;
+                e.Cancel = true;
+                if (row.IsNewRow)
+                {
+                    row.ErrorText = "";
+                    GridView1.CancelEdit();
+                }
+                return;
+            }
+
+            string sRowId = row.Cells[0].Value.ToString();
+            string sId = row.Cells[1].Value.ToString().ToUpper();
+            string sDesc = row.Cells[2].Value.ToString();
+
+            if (string.IsNullOrEmpty(sRowId))
+            {
+                // 新增Employee
+                PDefine.strSql = "Insert Into Task_List(Task_Id,Task_Desc,Update_User,Update_Time) Values( "
+                            + "'" + sId + "', '" + sDesc + "','" + PDefine.G_User_Id + "',sysdate)";
+
+                string strExecReturn = PDefine.lxs.SAEExecuteSqlA(PDefine.strSql);
+                if (strExecReturn != "T")                
+                {
+                    MessageBox.Show("Create new task failer!\r\n" + strExecReturn, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    row.Cells[0].Value = e.RowIndex + 1;
+                    row.Cells[1].Value = row.Cells[1].Value.ToString().ToUpper();
+                    row.Cells[2].Value = row.Cells[2].Value.ToString();
+                    StatusLabel4.Text = "Create new record success!";
+                }
+            }
+            else
+            {
+                PDefine.strSql = "Update Task_List set Task_Id='" + sId + "',Task_Desc='" + sDesc + "',"
+                            + "Update_User='" + PDefine.G_User_Id + "',Update_Time=sysdate "
+                            + "Where Task_Id='" + strSelId + "'";
+                string strExecReturn = PDefine.lxs.SAEExecuteSqlA(PDefine.strSql);
+                if (strExecReturn != "T") 
+                {
+                    MessageBox.Show("Update task failer!\r\n" + strExecReturn, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    row.Cells[1].Value = row.Cells[1].Value.ToString().ToUpper();
+                    row.Cells[2].Value = row.Cells[2].Value.ToString();
+                    StatusLabel4.Text = "Update record success!";
+                }
+            }
+            rowChanged = false;
+        }
+
+        private void GridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            rowChanged = true;
+            strSelId = GridView1.Rows[e.RowIndex].Cells[1].Value.ToString().Trim();
+            StatusLabel4.Text = "";
+            StatusLabel2.Text = strSelId;
+            StatusLabel3.Text = GridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Trim();
+        }
+
+        private void GridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            GridView1.Rows[e.RowIndex].ErrorText = string.Empty;
+        }
+
+        /// <summary>
+        /// 验证一行输入的数据是否有效
+        /// </summary>
+        /// <param name="rowEntry"></param>
+        /// <returns></returns>
+        private string ValidateRowEntry(DataGridViewCellCancelEventArgs rowEntry)
+        {
+            try
+            {
+                string result = string.Empty;
+
+                DataGridViewRow row = GridView1.Rows[rowEntry.RowIndex];
+
+                string v_ID = row.Cells[1].Value.ToString();
+                string v_Desc = row.Cells[2].Value.ToString();
+
+                if (v_ID.Length == 0)
+                {
+                    result += "Please Enter ID" + Environment.NewLine;
+                }
+                if (v_Desc.Length == 0)
+                {
+                    result += "Please Enter Desc" + Environment.NewLine;
+                }
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return ex.Message.ToString();
+            }
+        }
+
+        private void GridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            string errorText = string.Empty;
+            errorText += "Error，Location，Row:" + (e.RowIndex + 1).ToString() + "，Col" + (e.ColumnIndex + 1).ToString();
+            GridView1.Rows[e.RowIndex].ErrorText = errorText;
+
+            e.Cancel = true;
+        }
+
+        private void toolRefresh_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void GridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (e.Row.IsNewRow) { return; }
+
+            DialogResult result = MessageBox.Show("Do you really want to delete it?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                DataGridViewRow row = e.Row;
+                string sId = row.Cells[1].Value.ToString();
+
+                PDefine.strSql = "Delete From Task_List Where Task_Id = '" + sId + "'";
+                string strExecReturn = PDefine.lxs.SAEExecuteSqlA(PDefine.strSql);
+                if (strExecReturn!="T")
+                {
+                    MessageBox.Show(strExecReturn);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    StatusLabel4.Text = "Delete succeed!";
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void toolLock_Click(object sender, EventArgs e)
+        {
+            toolLock.Checked = !toolLock.Checked;
+            if (toolLock.Checked == true)
+            {
+                GridView1.Columns[1].ReadOnly = true;
+                GridView1.Columns[2].ReadOnly = true;
+                StatusLabel1.Text = "Locked";
+                toolLock.Text = "Unlock";
+            }
+            else
+            {
+                GridView1.Columns[1].ReadOnly = false;
+                GridView1.Columns[2].ReadOnly = false;
+                StatusLabel1.Text = "Editable";
+                toolLock.Text = "Lock";
+            }
+            StatusLabel2.Text = "";
+            StatusLabel3.Text = "";
+            StatusLabel4.Text = "";
+        }
+
+        private void toolDel_Click(object sender, EventArgs e)
+        {
+            if (GridView1.CurrentRow.IsNewRow)
+            {
+                GridView1.CurrentRow.ErrorText = "";
+                GridView1.CancelEdit();
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("Do you really want to delete it?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                string sId = GridView1.CurrentRow.Cells[1].Value.ToString();
+
+                PDefine.strSql = "Delete From Task_List Where Task_Id = '" + sId + "'";
+                string strExecReturn = PDefine.lxs.SAEExecuteSqlA(PDefine.strSql);
+                if (strExecReturn != "T")
+                {
+                    MessageBox.Show(strExecReturn);                    
+                }
+                else
+                {
+                    GridView1.Rows.Remove(GridView1.CurrentRow);
+                    StatusLabel4.Text = "Delete succeed!";
+                }
+            }
+        }
+
+        private void toolExport_Click(object sender, EventArgs e)
+        {
+            Tools.ExportToExcel(GridView1, "Task_List");
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            Tools.AutoSetColWidth(2, GridView1);
+        }
+
+        private void widthToHeaderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Tools.AutoSetColWidth(1, GridView1);
+        }
+
+        private void widthToContentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Tools.AutoSetColWidth(3, GridView1);
+        }
+    }
+}

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/ITD1/!svn/ver/1928/SAE_MRPC/MRPC2011/UtilityLibrary/Win32
+END
+vssver2.scc
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/ITD1/!svn/ver/1928/SAE_MRPC/MRPC2011/UtilityLibrary/Win32/vssver2.scc
+END
+RegistryUtil.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/ITD1/!svn/ver/1928/SAE_MRPC/MRPC2011/UtilityLibrary/Win32/RegistryUtil.cs
+END
+Enums.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ITD1/!svn/ver/1928/SAE_MRPC/MRPC2011/UtilityLibrary/Win32/Enums.cs
+END
+Structs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/ITD1/!svn/ver/1928/SAE_MRPC/MRPC2011/UtilityLibrary/Win32/Structs.cs
+END
+Functions.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/ITD1/!svn/ver/1928/SAE_MRPC/MRPC2011/UtilityLibrary/Win32/Functions.cs
+END

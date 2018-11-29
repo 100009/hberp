@@ -1,0 +1,382 @@
+﻿namespace HKPS
+{
+    partial class SEC_TASK_LIST
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SEC_TASK_LIST));
+            this.toolNew = new System.Windows.Forms.ToolStripButton();
+            this.toolEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolDel = new System.Windows.Forms.ToolStripButton();
+            this.GridView1 = new System.Windows.Forms.DataGridView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolLock = new System.Windows.Forms.ToolStripButton();
+            this.toolOpen = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolSave = new System.Windows.Forms.ToolStripButton();
+            this.toolCancel = new System.Windows.Forms.ToolStripButton();
+            this.toolRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolPreview = new System.Windows.Forms.ToolStripButton();
+            this.toolPrint = new System.Windows.Forms.ToolStripButton();
+            this.toolExport = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.widthToHeaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.widthToContentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolExit = new System.Windows.Forms.ToolStripButton();
+            ((System.ComponentModel.ISupportInitialize)(this.GridView1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // toolNew
+            // 
+            this.toolNew.Image = ((System.Drawing.Image)(resources.GetObject("toolNew.Image")));
+            this.toolNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolNew.Name = "toolNew";
+            this.toolNew.Size = new System.Drawing.Size(32, 33);
+            this.toolNew.Text = "New";
+            this.toolNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolNew.Visible = false;
+            // 
+            // toolEdit
+            // 
+            this.toolEdit.Image = ((System.Drawing.Image)(resources.GetObject("toolEdit.Image")));
+            this.toolEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolEdit.Name = "toolEdit";
+            this.toolEdit.Size = new System.Drawing.Size(29, 33);
+            this.toolEdit.Text = "Edit";
+            this.toolEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolEdit.Visible = false;
+            // 
+            // toolDel
+            // 
+            this.toolDel.Image = ((System.Drawing.Image)(resources.GetObject("toolDel.Image")));
+            this.toolDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDel.Name = "toolDel";
+            this.toolDel.Size = new System.Drawing.Size(26, 33);
+            this.toolDel.Text = "Del";
+            this.toolDel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolDel.Click += new System.EventHandler(this.toolDel_Click);
+            // 
+            // GridView1
+            // 
+            this.GridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GridView1.Location = new System.Drawing.Point(0, 36);
+            this.GridView1.Name = "GridView1";
+            this.GridView1.RowTemplate.Height = 23;
+            this.GridView1.Size = new System.Drawing.Size(627, 360);
+            this.GridView1.TabIndex = 9;
+            this.GridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.GridView1_UserDeletingRow);
+            this.GridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GridView1_CellBeginEdit);
+            this.GridView1.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GridView1_RowValidating);
+            this.GridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView1_RowValidated);
+            this.GridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.GridView1_DefaultValuesNeeded);
+            this.GridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.GridView1_DataError);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabel1,
+            this.StatusLabel2,
+            this.StatusLabel3,
+            this.StatusLabel4});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 396);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(627, 22);
+            this.statusStrip1.TabIndex = 8;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusLabel1
+            // 
+            this.StatusLabel1.AutoSize = false;
+            this.StatusLabel1.Image = ((System.Drawing.Image)(resources.GetObject("StatusLabel1.Image")));
+            this.StatusLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StatusLabel1.Name = "StatusLabel1";
+            this.StatusLabel1.Size = new System.Drawing.Size(76, 17);
+            this.StatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StatusLabel2
+            // 
+            this.StatusLabel2.AutoSize = false;
+            this.StatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.StatusLabel2.Image = ((System.Drawing.Image)(resources.GetObject("StatusLabel2.Image")));
+            this.StatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StatusLabel2.Name = "StatusLabel2";
+            this.StatusLabel2.Size = new System.Drawing.Size(120, 17);
+            this.StatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StatusLabel3
+            // 
+            this.StatusLabel3.AutoSize = false;
+            this.StatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.StatusLabel3.Image = ((System.Drawing.Image)(resources.GetObject("StatusLabel3.Image")));
+            this.StatusLabel3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StatusLabel3.Name = "StatusLabel3";
+            this.StatusLabel3.Size = new System.Drawing.Size(104, 17);
+            // 
+            // StatusLabel4
+            // 
+            this.StatusLabel4.AutoSize = false;
+            this.StatusLabel4.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.StatusLabel4.Image = ((System.Drawing.Image)(resources.GetObject("StatusLabel4.Image")));
+            this.StatusLabel4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StatusLabel4.Name = "StatusLabel4";
+            this.StatusLabel4.Size = new System.Drawing.Size(312, 17);
+            this.StatusLabel4.Spring = true;
+            this.StatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolLock,
+            this.toolOpen,
+            this.toolNew,
+            this.toolEdit,
+            this.toolDel,
+            this.toolStripSeparator1,
+            this.toolSave,
+            this.toolCancel,
+            this.toolRefresh,
+            this.toolStripSeparator2,
+            this.toolPreview,
+            this.toolPrint,
+            this.toolExport,
+            this.toolStripSeparator3,
+            this.toolStripSplitButton1,
+            this.toolStripSeparator4,
+            this.toolExit});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(627, 36);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolLock
+            // 
+            this.toolLock.Image = ((System.Drawing.Image)(resources.GetObject("toolLock.Image")));
+            this.toolLock.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolLock.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolLock.Name = "toolLock";
+            this.toolLock.Size = new System.Drawing.Size(32, 33);
+            this.toolLock.Text = "Lock";
+            this.toolLock.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolLock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolLock.Click += new System.EventHandler(this.toolLock_Click);
+            // 
+            // toolOpen
+            // 
+            this.toolOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolOpen.Image")));
+            this.toolOpen.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolOpen.Name = "toolOpen";
+            this.toolOpen.Size = new System.Drawing.Size(37, 33);
+            this.toolOpen.Text = "Open";
+            this.toolOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolOpen.Visible = false;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 36);
+            this.toolStripSeparator1.Visible = false;
+            // 
+            // toolSave
+            // 
+            this.toolSave.Image = ((System.Drawing.Image)(resources.GetObject("toolSave.Image")));
+            this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolSave.Name = "toolSave";
+            this.toolSave.Size = new System.Drawing.Size(35, 33);
+            this.toolSave.Text = "Save";
+            this.toolSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolSave.Visible = false;
+            // 
+            // toolCancel
+            // 
+            this.toolCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolCancel.Image")));
+            this.toolCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolCancel.Name = "toolCancel";
+            this.toolCancel.Size = new System.Drawing.Size(43, 33);
+            this.toolCancel.Text = "Cancel";
+            this.toolCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolCancel.Visible = false;
+            // 
+            // toolRefresh
+            // 
+            this.toolRefresh.Image = ((System.Drawing.Image)(resources.GetObject("toolRefresh.Image")));
+            this.toolRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolRefresh.Name = "toolRefresh";
+            this.toolRefresh.Size = new System.Drawing.Size(49, 33);
+            this.toolRefresh.Text = "Refresh";
+            this.toolRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolRefresh.Click += new System.EventHandler(this.toolRefresh_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 36);
+            this.toolStripSeparator2.Visible = false;
+            // 
+            // toolPreview
+            // 
+            this.toolPreview.Image = ((System.Drawing.Image)(resources.GetObject("toolPreview.Image")));
+            this.toolPreview.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPreview.Name = "toolPreview";
+            this.toolPreview.Size = new System.Drawing.Size(49, 33);
+            this.toolPreview.Text = "Preview";
+            this.toolPreview.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolPreview.Visible = false;
+            // 
+            // toolPrint
+            // 
+            this.toolPrint.Image = ((System.Drawing.Image)(resources.GetObject("toolPrint.Image")));
+            this.toolPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPrint.Name = "toolPrint";
+            this.toolPrint.Size = new System.Drawing.Size(33, 33);
+            this.toolPrint.Text = "Print";
+            this.toolPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolPrint.Visible = false;
+            // 
+            // toolExport
+            // 
+            this.toolExport.Image = ((System.Drawing.Image)(resources.GetObject("toolExport.Image")));
+            this.toolExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolExport.Name = "toolExport";
+            this.toolExport.Size = new System.Drawing.Size(43, 33);
+            this.toolExport.Text = "Export";
+            this.toolExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolExport.Click += new System.EventHandler(this.toolExport_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 36);
+            this.toolStripSeparator3.Visible = false;
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.widthToHeaderToolStripMenuItem,
+            this.widthToContentToolStripMenuItem});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(42, 33);
+            this.toolStripSplitButton1.Text = "Size";
+            this.toolStripSplitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripSplitButton1.ToolTipText = "Width to Content";
+            this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
+            // 
+            // widthToHeaderToolStripMenuItem
+            // 
+            this.widthToHeaderToolStripMenuItem.Name = "widthToHeaderToolStripMenuItem";
+            this.widthToHeaderToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.widthToHeaderToolStripMenuItem.Text = "Width to Header";
+            this.widthToHeaderToolStripMenuItem.Click += new System.EventHandler(this.widthToHeaderToolStripMenuItem_Click);
+            // 
+            // widthToContentToolStripMenuItem
+            // 
+            this.widthToContentToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("widthToContentToolStripMenuItem.Image")));
+            this.widthToContentToolStripMenuItem.Name = "widthToContentToolStripMenuItem";
+            this.widthToContentToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.widthToContentToolStripMenuItem.Text = "Width To Grid";
+            this.widthToContentToolStripMenuItem.Click += new System.EventHandler(this.widthToContentToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 36);
+            // 
+            // toolExit
+            // 
+            this.toolExit.Image = ((System.Drawing.Image)(resources.GetObject("toolExit.Image")));
+            this.toolExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolExit.Name = "toolExit";
+            this.toolExit.Size = new System.Drawing.Size(29, 33);
+            this.toolExit.Text = "Exit";
+            this.toolExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolExit.Click += new System.EventHandler(this.toolExit_Click);
+            // 
+            // SEC_TASK_LIST
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(627, 418);
+            this.Controls.Add(this.GridView1);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.toolStrip1);
+            this.Name = "SEC_TASK_LIST";
+            this.Text = "Task List";
+            this.Load += new System.EventHandler(this.SEC_TASK_LIST_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.GridView1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ToolStripButton toolNew;
+        private System.Windows.Forms.ToolStripButton toolEdit;
+        private System.Windows.Forms.ToolStripButton toolDel;
+        private System.Windows.Forms.DataGridView GridView1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel4;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolLock;
+        private System.Windows.Forms.ToolStripButton toolOpen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolSave;
+        private System.Windows.Forms.ToolStripButton toolCancel;
+        private System.Windows.Forms.ToolStripButton toolRefresh;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolPreview;
+        private System.Windows.Forms.ToolStripButton toolPrint;
+        private System.Windows.Forms.ToolStripButton toolExport;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem widthToHeaderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem widthToContentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolExit;
+    }
+}

@@ -1,0 +1,321 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace HKPS
+{
+    public partial class SEC_TASK_GRANT : Form
+    {
+        public SEC_TASK_GRANT()
+        {
+            InitializeComponent();
+        }
+
+        private void toolExit_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void SEC_TASK_GRANT_Load(object sender, EventArgs e)
+        {
+            string strHeader="Task Id,-1,0";
+            Tools.InitListView(lvSource, strHeader);
+            Tools.InitListView(lvDest, strHeader);
+            
+            PDefine.strSql = "Select Group_Id from User_Group order by Group_Id";
+            Tools.FillCombox(comboBox1, PDefine.strSql, "Group_Id", "Group_Id");
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+                LoadListBox();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex >= 0)
+                LoadListBox();
+        }
+
+        private void LoadListBox()
+        {
+            this.Cursor = Cursors.WaitCursor;
+
+            DataSet ds=null;
+            string strData="";
+            PDefine.strSql = "Select Task_Id from task_grant where Group_Id='"+ comboBox1.SelectedValue.ToString() +"' order by Task_Id";
+            ds = PDefine.lxs.SAEGetDataSource(PDefine.strSql);
+            for (int idx = 0; idx < ds.Tables[0].Rows.Count; idx++)
+            {
+                strData += ds.Tables[0].Rows[idx][0].ToString()+";";
+            }
+            lvDest.Items.Clear();
+            strData = strData.Trim();
+            if (strData.Length > 0)
+            {
+                strData = strData.Substring(0, strData.Length - 1);
+                Tools.InsertListView(lvDest, strData);
+            }
+
+            PDefine.strSql = "Select Task_Id from task_list minus (Select Task_Id from Task_Grant "
+                        + "where Group_Id='" + comboBox1.SelectedValue.ToString() + "') order by Task_Id";
+            strData = "";
+            ds = PDefine.lxs.SAEGetDataSource(PDefine.strSql);
+            for (int idx = 0; idx < ds.Tables[0].Rows.Count; idx++)
+            {
+                strData += ds.Tables[0].Rows[idx][0].ToString() + ";";
+            }
+            lvSource.Items.Clear();
+            strData = strData.Trim();
+            if (strData.Length > 0)
+            {
+                strData = strData.Substring(0, strData.Length - 1);                
+                Tools.InsertListView(lvSource, strData);
+            }
+            this.Cursor = Cursors.Default;
+            StatusLabel1.Text = "";
+        }
+                
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int iIndex = 0; iIndex < lvSource.Items.Count; iIndex++)
+            {
+                ListViewItem newItem = new ListViewItem();
+                newItem.SubItems.Clear();
+                newItem.Text = lvSource.Items[iIndex].Text.ToString();
+                lvDest.Items.Add(newItem);
+            }
+            for (int iIndex = lvSource.Items.Count - 1; iIndex >= 0; iIndex--)
+            {
+                lvSource.Items.RemoveAt(iIndex);
+            }
+            StatusLabel1.Text = "All Selected";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            for (int iIndex = 0; iIndex < lvSource.Items.Count; iIndex++)
+            {
+                if (lvSource.Items[iIndex].Selected == true)
+                {
+                    ListViewItem newItem = new ListViewItem();
+                    newItem.SubItems.Clear();
+                    newItem.Text = lvSource.Items[iIndex].Text.ToString();
+                    lvDest.Items.Add(newItem);
+                }
+            }
+            for (int iIndex = lvSource.Items.Count - 1; iIndex >= 0; iIndex--)
+            {
+                if (lvSource.Items[iIndex].Selected == true)
+                {
+                    lvSource.Items.RemoveAt(iIndex);
+                }
+            }
+            StatusLabel1.Text = "One Selected";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            for (int iIndex = 0; iIndex < lvDest.Items.Count; iIndex++)
+            {
+                if (lvDest.Items[iIndex].Selected == true)
+                {
+                    ListViewItem newItem = new ListViewItem();
+                    newItem.SubItems.Clear();
+                    newItem.Text = lvDest.Items[iIndex].Text.ToString();
+                    lvSource.Items.Add(newItem);
+                }
+            }
+            for (int iIndex = lvDest.Items.Count - 1; iIndex >= 0; iIndex--)
+            {
+                if (lvDest.Items[iIndex].Selected == true)
+                {
+                    lvDest.Items.RemoveAt(iIndex);
+                }
+            }
+            StatusLabel1.Text = "One Deleted";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            for (int iIndex = 0; iIndex < lvDest.Items.Count; iIndex++)
+            {
+                ListViewItem newItem = new ListViewItem();
+                newItem.SubItems.Clear();
+                newItem.Text = lvDest.Items[iIndex].Text.ToString();
+                lvSource.Items.Add(newItem);
+            }
+            for (int iIndex = lvDest.Items.Count - 1; iIndex >= 0; iIndex--)
+            {
+                lvDest.Items.RemoveAt(iIndex);
+            }
+            StatusLabel1.Text = "All Deleted";
+        }
+
+        private void toolSave_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;            
+            string str;
+
+            ArrayList strArr = new ArrayList();
+
+            strArr.Add("Delete Task_Grant where Group_Id='" + comboBox1.SelectedValue.ToString() + "'");
+
+            if (lvDest.Items.Count > 0)
+            {
+                for (int idx = 0; idx < lvDest.Items.Count; idx++)
+                {
+                    str = "Insert Into Task_Grant(Task_Id,Group_Id,Update_User,Update_Time)"
+                        + "values('" + lvDest.Items[idx].Text.ToString() + "','" + comboBox1.SelectedValue.ToString().Trim() + "',"
+                        + "'" + PDefine.G_User_Id + "',sysdate)";
+                    strArr.Add(str);
+                }
+            }
+
+            str = Tools.myXmlSerializer((object)strArr);
+            string strResult = PDefine.lxs.SAEExecuteTransNonQueryA(str);
+            if (strResult=="T")
+            {
+               StatusLabel1.Text ="Success!";
+            }
+            else
+            {
+                MessageBox.Show("Failure to save!\r\n" + strResult);
+            }
+            this.Cursor = Cursors.Default;
+        }
+        private void lvSource_DoubleClick(object sender, EventArgs e)
+        {
+            for (int iIndex = 0; iIndex < lvSource.Items.Count; iIndex++)
+            {
+                if (lvSource.Items[iIndex].Selected == true)
+                {
+                    ListViewItem newItem = new ListViewItem();
+                    newItem.SubItems.Clear();
+                    newItem.Text = lvSource.Items[iIndex].Text.ToString();                    
+                    lvDest.Items.Add(newItem);
+                }
+            }
+            for (int iIndex = lvSource.Items.Count - 1; iIndex >= 0; iIndex--)
+            {
+                if (lvSource.Items[iIndex].Selected == true)
+                {
+                    lvSource.Items.RemoveAt(iIndex);
+                }
+            }
+            StatusLabel1.Text = "One Selected";
+        }
+
+        private void lvDest_DoubleClick(object sender, EventArgs e)
+        {
+            for (int iIndex = 0; iIndex < lvDest.Items.Count; iIndex++)
+            {
+                if (lvDest.Items[iIndex].Selected == true)
+                {
+                    ListViewItem newItem = new ListViewItem();
+                    newItem.SubItems.Clear();
+                    newItem.Text = lvDest.Items[iIndex].Text.ToString();                    
+                    lvSource.Items.Add(newItem);
+                }
+            }
+            for (int iIndex = lvDest.Items.Count - 1; iIndex >= 0; iIndex--)
+            {
+                if (lvDest.Items[iIndex].Selected == true)
+                {
+                    lvDest.Items.RemoveAt(iIndex);
+                }
+            }
+            StatusLabel1.Text = "One Deleted";
+        }
+
+        private void lvSource_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void lvSource_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //invoke   the   drag   and   drop   operation   
+                DoDragDrop(e.Item, DragDropEffects.Move);
+            }
+        }
+
+        private void lvSource_DragDrop(object sender, DragEventArgs e)
+        {
+            ListViewItem tempItem = new ListViewItem();
+            ListViewItem DestItem;
+            Point pt;
+            pt = lvSource.PointToClient(new Point(e.X, e.Y));
+            DestItem = lvSource.GetItemAt(pt.X, pt.Y);
+            if (DestItem == null)
+            {
+                ListViewItem newItem = (ListViewItem)e.Data.GetData("System.Windows.Forms.ListViewItem");
+                tempItem = (ListViewItem)newItem.Clone();
+                lvDest.Items.Remove(newItem);
+                lvSource.Items.Remove(newItem);
+                lvSource.Items.Add(tempItem);
+            }
+            else
+            {
+                ListViewItem newItem = (ListViewItem)e.Data.GetData("System.Windows.Forms.ListViewItem");
+                if (!DestItem.Equals(newItem))
+                {
+                    tempItem = (ListViewItem)newItem.Clone();
+                    lvSource.Items.Remove(newItem);
+                    lvDest.Items.Remove(newItem);
+                    lvSource.Items.Insert(DestItem.Index, tempItem);
+                }
+            }
+        }
+
+        private void lvDest_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void lvDest_DragDrop(object sender, DragEventArgs e)
+        {
+            ListViewItem tempItem = new ListViewItem();
+            ListViewItem DestItem;
+            Point pt;
+            pt = lvDest.PointToClient(new Point(e.X, e.Y));
+            DestItem = lvDest.GetItemAt(pt.X, pt.Y);
+            if (DestItem == null)
+            {
+                ListViewItem newItem = (ListViewItem)e.Data.GetData("System.Windows.Forms.ListViewItem");
+                tempItem = (ListViewItem)newItem.Clone();
+                lvSource.Items.Remove(newItem);
+                lvDest.Items.Remove(newItem);
+                lvDest.Items.Add(tempItem);
+            }
+            else
+            {
+                ListViewItem newItem = (ListViewItem)e.Data.GetData("System.Windows.Forms.ListViewItem");
+                if (!DestItem.Equals(newItem))
+                {
+                    tempItem = (ListViewItem)newItem.Clone();
+                    lvSource.Items.Remove(newItem);
+                    lvDest.Items.Remove(newItem);
+                    lvDest.Items.Insert(DestItem.Index, tempItem);
+                }
+            }
+        }
+
+        private void lvDest_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //invoke   the   drag   and   drop   operation   
+                DoDragDrop(e.Item, DragDropEffects.Move);
+
+            }
+        }
+    }
+}
