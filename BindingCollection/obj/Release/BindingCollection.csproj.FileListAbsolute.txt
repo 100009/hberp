@@ -1,0 +1,17 @@
+D:\Projects\hberp\BindingCollection\bin\Release\BindingCollection.dll
+D:\Projects\hberp\BindingCollection\bin\Release\BindingCollection.pdb
+D:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.csproj.CoreCompileInputs.cache
+D:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.dll
+D:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.pdb
+C:\Projects\hberp\BindingCollection\bin\Release\BindingCollection.dll
+C:\Projects\hberp\BindingCollection\bin\Release\BindingCollection.pdb
+C:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.csproj.CoreCompileInputs.cache
+C:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.dll
+C:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.pdb
+C:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.csprojResolveAssemblyReference.cache
+E:\Projects\hberp\BindingCollection\bin\Release\BindingCollection.dll
+E:\Projects\hberp\BindingCollection\bin\Release\BindingCollection.pdb
+E:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.csprojAssemblyReference.cache
+E:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.csproj.CoreCompileInputs.cache
+E:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.dll
+E:\Projects\hberp\BindingCollection\obj\Release\BindingCollection.pdb
